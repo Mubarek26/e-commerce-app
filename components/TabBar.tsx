@@ -9,10 +9,13 @@ import { useEffect, useState } from 'react';
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { colors } = useTheme();
   const { buildHref } = useLinkBuilder();
+  const allowedRoutes = new Set(['index', 'explore', 'notifications', 'cart', 'profile']);
+  const visibleRoutes = state.routes.filter((route) => allowedRoutes.has(route.name));
 
   const [dimensions, setDimensions] = useState({ width: 100, height: 20 });
 
-  const buttonWidth = dimensions.width / state.routes.length;
+  const buttonCount = visibleRoutes.length || 1;
+  const buttonWidth = dimensions.width / buttonCount;
   
   useEffect(() => {
     // You can perform any action with buttonWidth here
@@ -31,7 +34,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   return (
     <View style={styles.tabBar} onLayout={onTabBarLayout}>
       <Animated.View style={[animatedStyle, { position: 'absolute', top: 0,width:buttonWidth/2, height: 2, backgroundColor: colors.primary }]} />
-      {state.routes.map((route, index) => {
+      {visibleRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined

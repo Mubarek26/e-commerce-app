@@ -14,7 +14,8 @@ type Props = {
 }
 
 const TabBarButton = (props: Props) => {
-    const { label, isFocused, onPress, onLongPress, href } = props;
+  const { label, isFocused, onPress, onLongPress, href } = props;
+  const iconRenderer = Icon[props.routeName as keyof typeof Icon];
   return (
       <Pressable
             testID={props.testID}
@@ -29,7 +30,7 @@ const TabBarButton = (props: Props) => {
               </View>
           )}
       
-          {Icon[props.routeName]({ color: isFocused ? Colors.primary : Colors.black, size: 24 } as any)}
+          {iconRenderer?.({ color: isFocused ? Colors.primary : Colors.black, size: 24 } as any)}
             <Text style={{ color: isFocused ? Colors.primary : Colors.text }}>
               {label}
             </Text>

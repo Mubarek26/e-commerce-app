@@ -1,8 +1,6 @@
 import React from 'react';
 import { Tabs } from "expo-router";
-import { Ionicons } from '@expo/vector-icons';
 import { TabBar } from '@/components/TabBar';
-import Icon from '@/constants/Icons';
 export default function TabLayout() {
   return (
     <Tabs tabBar={props => <TabBar {...props} />} screenOptions={{headerShown: false}}>
