@@ -19,8 +19,9 @@ type Props = {
 const width=Dimensions.get('window').width-40;
 const ProductItem = ({ item, index }: Props) => {
   const itemIndex = typeof index === 'number' ? index : 0;
+  const itemId = (item as any)?.id ?? itemIndex;
   return (
-    <Link href={`/product-details/${itemIndex}`} asChild>
+    <Link href={{ pathname: '/product-details/[id]', params: { id: String(itemId) } } as any} asChild>
       <TouchableOpacity >
     <Animated.View entering={FadeInDown.delay(300 + itemIndex * 100)} style={styles.container}>
       <View style={styles.imageWrapper}>
